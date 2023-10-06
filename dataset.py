@@ -10,10 +10,17 @@ import random
 import os
 #ファイル名取得
 
-files1 = glob.glob("/data/song/**/*.wav")
-files2 = glob.glob("/data/speech/**/*.wav")
+
+import os
+abpath = os.getcwd()
+songpath = os.path.join(abpath, 'data/song/**/*.wav')
+speechpath = os.path.join(abpath, 'data/speech/**/*.wav')
+
+files1 = glob.glob(songpath)
+files2 = glob.glob(speechpath)
 files3 = files1 + files2
 
+# print(files3)
 trainfiles = random.sample(files3, int(len(files3)*0.8))
 valfiles = list(set(files3) - set(trainfiles))
 files = [trainfiles, valfiles]
@@ -55,3 +62,4 @@ for hoge in files:
         # plt.colorbar()
         # plt.show()
         cv2.imwrite(f'data/{folder}/{label}/{filename}.png', Z)
+        # print(f'{folder}/{label}/{filename}.png')
