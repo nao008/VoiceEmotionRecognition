@@ -7,15 +7,26 @@ from scipy.signal import spectrogram
 import glob
 import cv2
 import random
+import os
 #ファイル名取得
 
-files1 = glob.glob("/home/naoya/Desktop/github/VoiceEmotionRecognition/data/song/**/*.wav")
-files2 = glob.glob("/home/naoya/Desktop/github/VoiceEmotionRecognition/data/speech/**/*.wav")
+files1 = glob.glob("/data/song/**/*.wav")
+files2 = glob.glob("/data/speech/**/*.wav")
 files3 = files1 + files2
 
 trainfiles = random.sample(files3, int(len(files3)*0.8))
 valfiles = list(set(files3) - set(trainfiles))
 files = [trainfiles, valfiles]
+
+# ディレクトリの用意
+train_directory_path = "data/train"
+val_directory_path = "data/val"
+for i in range(8):
+    if not os.path.exists(f'{train_directory_path}/{i+1}'):
+        os.makedirs(f'{train_directory_path}/{i+1}')
+    if not os.path.exists(f'{val_directory_path}/{i+1}'):
+        os.makedirs(f'{val_directory_path}/{i+1}')
+
 
 for hoge in files:
     for file in hoge:
@@ -43,4 +54,4 @@ for hoge in files:
         # plt.ylabel('Frequency (Hz)')
         # plt.colorbar()
         # plt.show()
-        cv2.imwrite(f'/home/naoya/Desktop/github/VoiceEmotionRecognition/data/{folder}/{label}/{filename}.png', Z)
+        cv2.imwrite(f'data/{folder}/{label}/{filename}.png', Z)
