@@ -2,3 +2,4 @@ __pycache__/
 test.py
 data/train/*
 data/val/*
+data/test/*
